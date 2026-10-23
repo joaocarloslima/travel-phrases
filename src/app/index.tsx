@@ -1,98 +1,77 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import PhraseCard from "@/components/phrase-card";
+import SectionTitle from "@/components/session-title";
+import { ScrollView, StyleSheet, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { colors } from "./theme/colors";
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
-
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
+export default function TravelPhrases() {
   return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+    <SafeAreaView style={styles.screen}>
+      <ScrollView contentContainerStyle={styles.content}>
+        <Text style={styles.title}>Frases de Viagem 🌎</Text>
+        <Text style={styles.subtitle}>
+          Toque em uma frase para ouvir a pronúncia
+        </Text>
 
-export default function HomeScreen() {
-  return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
+        <SectionTitle emoji="🛫">No aeroporto</SectionTitle>
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
+        <PhraseCard
+          phrase="Quanto custa?"
+          translation="How much does it cost?"
+        />
+        <PhraseCard
+          phrase="Onde fica o banheiro?"
+          translation="Where is the bathroom?"
+        />
+        <PhraseCard
+          phrase="Qual é o preço do ingresso?"
+          translation="What is the price of the ticket?"
+        />
 
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
+        <SectionTitle emoji="⚠️">Emergência</SectionTitle>
 
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+        <PhraseCard
+          phrase="Quanto custa?"
+          translation="How much does it cost?"
+        />
+        <PhraseCard
+          phrase="Onde fica o banheiro?"
+          translation="Where is the bathroom?"
+        />
+        <SectionTitle emoji="🇪🇸">Espanhol</SectionTitle>
+
+        <PhraseCard
+          phrase="Olá, como vai?"
+          translation="Hola, ¿cómo estás?"
+          language="es"
+        />
+        <PhraseCard
+          phrase="Onde fica o banheiro?"
+          translation="¿Dónde está el baño?"
+          language="es"
+        />
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  screen: {
     flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
+    backgroundColor: colors.background,
   },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
-  },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
+  content: {
+    padding: 20,
+    gap: 12,
   },
   title: {
-    textAlign: 'center',
+    fontSize: 30,
+    fontWeight: "bold",
+    color: colors.blue,
   },
-  code: {
-    textTransform: 'uppercase',
-  },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+  subtitle: {
+    fontSize: 15,
+    color: colors.mutedText,
+    marginBottom: 8,
   },
 });
